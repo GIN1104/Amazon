@@ -15,7 +15,8 @@ function Product({id,   title, image, price, rating}) {
                     {
                         Array(rating)
                             .fill()
-                            .map((_, i) => (<p><StarIcon
+                            .map((_, i) => (<p key={i}><StarIcon
+                                key={i}
                                 style={{
                                     color: "gold"
                                 }}/></p>))
