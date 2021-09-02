@@ -52,7 +52,7 @@ function Home() {
                     <Product
                         id="4903850"
                         title="Samsung Odyssey G9 LC49G93TSSRXXU 49' 1000R Curved Gaming Monitor - 240hz"
-                        price={199.99}
+                        price={1999.99}
                         image="https://m.media-amazon.com/images/I/81RcJoVbvDL._AC_SL1500_.jpg"
                         rating={2}/>
                 </div>
