@@ -1,4 +1,11 @@
-import firebase from "firebase";
+// import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/auth';        // for authentication
+// import 'firebase/storage';     // for storage
+// import 'firebase/database';    // for realtime database
+import 'firebase/firestore';   // for cloud firestore
+// import 'firebase/messaging';   // for cloud messaging
+// import 'firebase/functions';   // for cloud functions
 
 export const firebaseConfig = {
     apiKey: "AIzaSyAkMXUOBV6W0EZFzzOdo4e-0Idf7qgs19s",
