@@ -5,7 +5,7 @@
 }
 .checkoutProduct__info{
     padding-left: 20px;
-    width: 50%;
+    /* width: 50%; */
 }
 .checkoutProduct__info > button {
     background: #f0c14b;
