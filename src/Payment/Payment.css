@@ -20,7 +20,7 @@
 .payment__title {
     flex: 0.2;
 }
-.payment__address, .payment__items {
+.payment__address, .payment__items .payment__details{
     align-items: center;
     flex: 0.8;
 }
