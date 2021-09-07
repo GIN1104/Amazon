@@ -21,6 +21,11 @@
     flex: 0.2;
 }
 .payment__address, .payment__items .payment__details{
+    margin: 0 20px;
     align-items: center;
     flex: 0.8;
+}
+.payment__details{
+    margin: 0 20px;
+    width: 100%;
 }
