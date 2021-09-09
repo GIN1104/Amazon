@@ -9,13 +9,9 @@ import { getBasketTotal } from '../reducer';
 import axios from "../axios";
 
 function Payment() {
-    const [
-        {
-            basket,
-            user
-        }
-    ] = useStateValue();
+    const [ {basket, user }, dispatch] = useStateValue();
     const history = useHistory();
+
 
     const stripe = useStripe();
     const elements = useElements();
@@ -51,6 +47,10 @@ function Payment() {
             setSucceeded(true);
             setError(null);
             setProcessing(false);
+
+            dispatch({
+                type: "EMPTY_BASKET"
+            })
 
             history.replace('/orders');
         })
