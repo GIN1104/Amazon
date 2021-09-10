@@ -5,19 +5,23 @@ import './Payment.css';
 import {Link, useHistory} from 'react-router-dom';
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import CurrencyFormat from 'react-currency-format';
-import { getBasketTotal } from '../reducer';
+import {getBasketTotal} from '../reducer';
 import axios from "../axios";
+import {db} from "../firebase"
 
 function Payment() {
-    const [ {basket, user }, dispatch] = useStateValue();
+    const [
+        {
+            basket,
+            user
+        }, dispatch] = useStateValue();
     const history = useHistory();
-
 
     const stripe = useStripe();
     const elements = useElements();
 
     const [succeeded, setSucceeded] = useState(false);
-    const [ processing, setProcessing ] = useState("")
+    const [processing, setProcessing] = useState("")
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
     const [clientSecret, setClientSecret] = useState(true);
@@ -26,7 +30,7 @@ function Payment() {
         const getClientSecret = async () => {
             const response = await axios({
                 method: 'post',
-                url: `/payments/create?total=${getBasketTotal(basket) * 100}`
+                url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
             });
             setClientSecret(response.data.clientSecret)
         }
@@ -39,21 +43,35 @@ function Payment() {
         event.preventDefault();
         setProcessing(true);
 
-        const payload = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement)
-            }
-        }).then(({ paymentIntent }) => {
-            setSucceeded(true);
-            setError(null);
-            setProcessing(false);
-
-            dispatch({
-                type: "EMPTY_BASKET"
+        const payload = await stripe
+            .confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement)
+                }
             })
+            .then(({paymentIntent}) => {
+                db
+                    .collection('users')
+                    .doc(user?.uid)
+                    .collection('orders')
+                    .doc(paymentIntent.id)
+                    .set(
+                        {
+                            basket: basket,
+                            amount: paymentIntent.amount,
+                            created: paymentIntent.created
+                        }
+                    )
 
-            history.replace('/orders');
-        })
+                setSucceeded(true);
+                setError(null);
+                setProcessing(false);
+
+                dispatch({type: "EMPTY_BASKET"})
+
+                history.replace('/orders');
+            })
+        console.log(payload)
     }
 
     const handelChange = event => {
@@ -122,17 +140,21 @@ function Payment() {
                             <CardElement onChange={handelChange}/>
                             <div className="payment__priceContainer">
                                 <CurrencyFormat
-                                    renderText={value => <h3>Order Total: {value }</h3>}
+                                    renderText={value => <h3>Order Total: {value}</h3>}
                                     decimalScale={2}
                                     value={getBasketTotal(basket)}
                                     displayType={"text"}
                                     thousandSeparator={true}
-                                    prefix={"$"} />
+                                    prefix={"$"}/>
                                 <button disabled={processing || disabled || succeeded}>
-                                    <span>{ processing ? <p>Processing</p> : "Buy Now"}</span>
+                                    <span>{
+                                            processing
+                                                ? <p>Processing</p>
+                                                : "Buy Now"
+                                        }</span>
                                 </button>
                             </div>
-                            {error && <div>{ error}</div>}
+                            {error && <div>{error}</div>}
                         </form>
                     </div>
                 </div>
