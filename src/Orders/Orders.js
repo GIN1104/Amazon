@@ -6,8 +6,9 @@ import "./Orders.css";
 import Order from '../Order/Order';
 
 function Orders() {
-    const [{ basket, user }, dispatch] = useStateValue;
+    const [{  user }] = useStateValue();
     const [orders, setOrders] = useState([]);
+
 
     useEffect(() => {
         if (user) {
@@ -32,7 +33,7 @@ function Orders() {
             Orders
             <div className="orders__order">
                 {orders?.map(order => (
-                    <Order order={order} />
+                    <Order key={order.id} order={order} />
                 ))}
             </div>
         </div>
