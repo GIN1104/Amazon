@@ -10,10 +10,9 @@ app.use(express.json());
 
 app.get("/", (request, response) => response.status(200).send("Hello world"));
 
-app.post('/payments/create', async (request, response) => {
-    const total = request.query.total;
+app.post("/payments/create", async (request, response) => { const total = request.query.total;
 
-    console.log('Payment Request Resieved !!!', total);
+    console.log("Payment Request Resieved !!!", total);
 
     const paymentIntent = await stripe.paymentIntents.create({
         amount: total,
@@ -22,7 +21,8 @@ app.post('/payments/create', async (request, response) => {
     response.status(201).send({
         clientSecret: paymentIntent.client_secret,
     })
-});
+}
+);
 
 exports.api = functions.https.onRequest(app);
 

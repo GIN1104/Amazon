@@ -30,7 +30,6 @@ function Orders() {
     }, [user])
     return (
         <div className="orders">
-            Orders
             <div className="orders__order">
                 {orders?.map(order => (
                     <Order key={order.id} order={order} />
