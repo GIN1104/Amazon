@@ -4,6 +4,7 @@
     border: 1px solid lightgrey;
     background-color: white;
     position: relative;
+    box-shadow:  0 0 10px rgb(9, 9, 11), 0 0 15px rgb(51, 51, 67);
 }
 .order__id {
     position: absolute;

@@ -31,9 +31,13 @@ function Orders() {
     return (
         <div className="orders">
             <div className="orders__order">
-                {orders?.map(order => (
-                    <Order key={order.id} order={order} />
-                ))}
+
+                { user && orders !== [] ?
+                    orders?.map(order => (
+                        <Order key={order.id} order={order} />
+                    ))
+                    : <h2>No Orders Yet, Please Sign In and make an Order</h2>
+            }
             </div>
         </div>
     )

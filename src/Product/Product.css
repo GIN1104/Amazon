@@ -10,6 +10,7 @@
     min-width: 100px;
     background-color: white;
     z-index: 1;
+    box-shadow:  0 0 10px rgb(9, 9, 11), 0 0 15px rgb(51, 51, 67);
 }
 .product__rating {
     display: flex;
