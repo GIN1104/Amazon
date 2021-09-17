@@ -5,6 +5,7 @@ import { useStateValue } from '../StateProvider';
 import "./Orders.css";
 import Order from '../Order/Order';
 
+
 function Orders() {
     const [{  user }] = useStateValue();
     const [orders, setOrders] = useState([]);
@@ -26,7 +27,6 @@ function Orders() {
         } else {
             setOrders([])
         }
-
     }, [user])
     return (
         <div className="orders">

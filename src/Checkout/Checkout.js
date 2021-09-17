@@ -4,6 +4,7 @@ import './Checkout.css';
 import CheckoutProduct from '../CheckoutProduct/CheckoutProduct';
 import { useStateValue } from '../StateProvider';
 
+
 function Checkout() {
     const [{ basket, user  }] = useStateValue();
     
