@@ -27,20 +27,22 @@ function Checkout() {
                             image={item.image}
                             price={item.price}
                             rating={item.rating}
-                        />
+                            />
+                            
                         ))
 
                     }
-
 
                     {/* CheckoutProduct */}
                     {/* CheckoutProduct */}
                     {/* CheckoutProduct */}
                 </div>
             </div>
+ 
             <div className="checkout__right">
                 <Subtotal />
             </div>
+
         </div>
     )
 }
